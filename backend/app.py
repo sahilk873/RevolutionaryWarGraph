@@ -25,7 +25,7 @@ index = pc.Index('relationships-index')
 app = FastAPI()
 
 # Mount static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("../frontend/static", StaticFiles(directory="static"), name="static")
 
 # Request model for user questions
 class QuestionRequest(BaseModel):
