@@ -35,7 +35,7 @@ function sendMessage() {
     const numMatches = parseInt(contextSlider.value, 10);
 
     // Send the message to the backend with the number of query vectors
-    fetch('/ask', {
+    fetch('https://revolutionarywargraph-11.onrender.com/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: message, num_matches: numMatches })
