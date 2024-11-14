@@ -41,108 +41,7 @@ def process_section(
         Tuple[List[FinalEntity], List[FinalRelationship]]: Lists of extracted entities and relationships.
     """
     # Define the JSON schema for structured outputs
-    schema = {
-        "type": "object",
-        "properties": {
-            "entities": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "id": {"type": "string"},
-                        "metadata": {
-                            "oneOf": [
-                                {"$ref": "#/definitions/PersonMetadata"},
-                                {"$ref": "#/definitions/PlaceMetadata"},
-                                {"$ref": "#/definitions/EventMetadata"},
-                            ]
-                        },
-                        "text_snippet": {"type": "string"},
-                    },
-                    "required": ["id", "metadata", "text_snippet"],
-                },
-            },
-            "relationships": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "id": {"type": "string"},
-                        "metadata": {"$ref": "#/definitions/RelationshipMetadata"},
-                        "text_snippet": {"type": "string"},
-                    },
-                    "required": ["id", "metadata", "text_snippet"],
-                },
-            },
-        },
-        "required": ["entities", "relationships"],
-        "definitions": {
-            "PersonMetadata": {
-                "type": "object",
-                "properties": {
-                    "type": {"enum": ["Person"]},
-                    "name": {"type": "string"},
-                    "birth_date": {"type": "string"},
-                    "death_date": {"type": "string"},
-                    "role": {"type": "string"},
-                    "contribution": {"type": "string"},
-                },
-                "required": [
-                    "type",
-                    "name",
-                    "birth_date",
-                    "death_date",
-                    "role",
-                    "contribution",
-                ],
-            },
-            "PlaceMetadata": {
-                "type": "object",
-                "properties": {
-                    "type": {"enum": ["Place"]},
-                    "name": {"type": "string"},
-                    "location": {"type": "string"},
-                    "significance": {"type": "string"},
-                },
-                "required": ["type", "name", "location", "significance"],
-            },
-            "EventMetadata": {
-                "type": "object",
-                "properties": {
-                    "type": {"enum": ["Event"]},
-                    "name": {"type": "string"},
-                    "date": {"type": "string"},
-                    "location": {"type": "string"},
-                    "outcome": {"type": "string"},
-                    "significance": {"type": "string"},
-                },
-                "required": [
-                    "type",
-                    "name",
-                    "date",
-                    "location",
-                    "outcome",
-                    "significance",
-                ],
-            },
-            "RelationshipMetadata": {
-                "type": "object",
-                "properties": {
-                    "type": {"enum": ["Relationship"]},
-                    "relationship_type": {"type": "string"},
-                    "entity1_id": {"type": "string"},
-                    "entity2_id": {"type": "string"},
-                },
-                "required": [
-                    "type",
-                    "relationship_type",
-                    "entity1_id",
-                    "entity2_id",
-                ],
-            },
-        },
-    }
-
+    
     messages = [
         {
             "role": "system",
@@ -154,7 +53,6 @@ def process_section(
                 "such as **'was won by'**, **'took place near'**, or phrases commonly used in answers like **'led by'**, **'occurred in'**, **'resulted in'**, **'fought between'**, etc. "
                 "These relationships will be used to compare with **embeddings of hypothetical answers to questions** in a database, so **extract relationships in a way that they represent how such answers would phrase them**. "
                 "Use the following metadata schemas for entities and relationships:\n\n"
-                f"Schema:\n{json.dumps(schema, indent=2)}\n\n"
                 "Only extract entities of types **'Person'**, **'Place'**, or **'Event'** and their relationships. "
                 "Do not extract chapter titles, section titles, or similar non-entity text."
             ),
