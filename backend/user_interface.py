@@ -2,15 +2,13 @@
 import os  
 
 # external
-from pinecone import Pinecone, ServerlessSpec
-from hypothetical_answer_generator import extract_relationship_type 
-from embedding import create_embedding
+from pinecone import Pinecone, ServerlessSpec 
 from pydantic import BaseModel
 
-#internal
-from build_relationship_string import produce_context  
+#internal  
 from query import query_database
-from answer import output_answer_generation 
+from openai_methods import output_answer_generation, create_embedding, extract_relationship_type
+from utils import produce_context
 from config import PINECONE_API_KEY 
 from models import EntityMetadata
 

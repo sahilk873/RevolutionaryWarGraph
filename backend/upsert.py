@@ -37,7 +37,7 @@ def upsert_relationships(index: pinecone.Index, relationships: list[dict], batch
     vectors: list[dict] = []
     for relationship in relationships:
         vector: dict = {
-            'id': sanitize_id(relationship['id']),
+            'id': sanitize_id(vector_id=relationship['id']),
             'values': relationship['embedding'],
             'metadata': relationship['metadata']
         }
@@ -59,8 +59,8 @@ def load_relationships(json_path: str) -> list[dict]:
 
 def main() -> None:
     index: pinecone.Index = create_or_connect_index()
-    relationships: list[dict] = load_relationships('structured_relationships_unique_ids.json')  
-    upsert_relationships(index, relationships)
+    relationships: list[dict] = load_relationships(json_path='structured_relationships_unique_ids.json')  
+    upsert_relationships(index=index, relationships=relationships)
     index = pc.Index(INDEX_NAME)
     print(index.describe_index_stats())
 

@@ -9,7 +9,7 @@ from openai import OpenAI
 from pydantic import BaseModel
 
 # Internal
-from embedding import create_embedding
+from openai_methods import create_embedding
 from models import (
     PersonMetadata,
     PlaceMetadata,
@@ -66,7 +66,7 @@ def process_section(
         response_format=EntitiesResponseModel,  # Pass EntitiesResponseModel class
     )
 
-    # Access the parsed lists of entities and relationships
+    # Acces the parsed lists of entities and relationships
     entities_data = response.choices[0].message.parsed.entities # type hint
     relationships_data = response.choices[0].message.parsed.relationships
 
