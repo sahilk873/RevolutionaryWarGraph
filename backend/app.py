@@ -1,5 +1,6 @@
 # builtin
 import os  
+from fastapi.middleware.cors import CORSMiddleware 
 
 # external
 from fastapi import FastAPI, Request, HTTPException
@@ -20,6 +21,14 @@ index = pc.Index('relationships-index')
 
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://revolutionary-war-graph-rixs.vercel.app"],  # Add your frontend domain
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all HTTP headers
+)
 
 app.mount("/static", StaticFiles(directory="../frontend/static"), name="static")
 
