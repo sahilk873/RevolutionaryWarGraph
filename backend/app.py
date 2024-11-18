@@ -33,7 +33,7 @@ class QuestionResponse(BaseModel):
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
-    with open("templates/index.html", "r") as f:
+    with open("../frontend/templates/index.html", "r") as f:
         html_content = f.read()
     return HTMLResponse(content=html_content, status_code=200)
 
