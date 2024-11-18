@@ -24,7 +24,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://revolutionary-war-graph-rixs.vercel.app"],  # Add your frontend domain
+    allow_origins=["https://revolutionary-war-graph-71wc.vercel.app"],  # Add your frontend domain
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all HTTP headers
